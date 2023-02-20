@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ElementRef} from '@angular/core';
 import {ModalService} from '../../services/modal.service';
 
 @Component({
@@ -10,10 +10,15 @@ export class ModalComponent implements OnInit {
 
   @Input() modalID: string = '';
 
-  constructor(public modalService: ModalService) {
+  constructor(public modalService: ModalService, public el: ElementRef) {
+
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // This will solve the issue of modal inheriting CSS from parent elements.
+    // Following code will make the modal a child of the body
+    document.body.appendChild(this.el.nativeElement)
+  }
 
   closeModal() {
     this.modalService.toggleModal(this.modalID);
