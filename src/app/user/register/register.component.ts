@@ -18,9 +18,16 @@ export class RegisterComponent {
     Validators.min(15),
     Validators.max(100),
   ]);
-  password = new FormControl('');
-  confirmPassword = new FormControl('');
-  phoneNumber = new FormControl('');
+  password = new FormControl('', [
+    Validators.required,
+    Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/),
+  ]);
+  confirmPassword = new FormControl('', [Validators.required]);
+  phoneNumber = new FormControl('', [
+    Validators.required,
+    Validators.minLength(13),
+    Validators.maxLength(13),
+  ]);
   registerForm: FormGroup = new FormGroup({
     name: this.name,
     email: this.email,
@@ -29,4 +36,8 @@ export class RegisterComponent {
     confirmPassword: this.confirmPassword,
     phoneNumber: this.phoneNumber,
   });
+
+  register() {
+    console.log('Register called');
+  }
 }
