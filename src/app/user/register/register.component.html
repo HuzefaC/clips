@@ -1,3 +1,7 @@
+<app-alert *ngIf="showAlert">
+  {{ alertMsg }}
+</app-alert>
+
 <!-- Registration Form -->
 <form (ngSubmit)="register()" [formGroup]="registerForm">
   <!-- Name -->
