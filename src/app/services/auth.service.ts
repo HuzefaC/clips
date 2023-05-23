@@ -7,15 +7,18 @@ import {
 import IUser from '../models/user.model';
 // @ts-ignore
 import firebase from '$GLOBAL$';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  public isAuthenticated$: Observable<boolean>;
   private usersCollection: AngularFirestoreCollection<IUser>;
 
   constructor(private auth: AngularFireAuth, private db: AngularFirestore) {
     this.usersCollection = this.db.collection<IUser>('users');
+    this.isAuthenticated$ = auth.user.pipe(map((user) => !!user));
   }
 
   public async registerUser(userData: IUser) {
